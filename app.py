@@ -43,7 +43,6 @@ def send_msg(msg, recipient):
 
 @app.route("/webhook", methods=["POST"])   
 def webhook():                               #getting data from the flask app sent using POST method
-
     f = request.form
     msg = f['Body']
     sender = f['From']
