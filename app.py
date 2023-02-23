@@ -12,6 +12,9 @@ client = Client(ACCOUNT_ID, TWILIO_TOKEN)
 TWILIO_NUMBER = 'whatsapp:+14155238886'
 
 
+#get_stock_LTP("TATASTEEL")     #testing get_stock_LTP function
+
+
 
 def create_response(msg):
     response = ""
@@ -26,7 +29,7 @@ def create_response(msg):
         last_price = stock_price['last_price']
         last_price = str(last_price)
         #response = "Last Traded Price for "+ stock_symbol + " is "+ last_price
-        response = "Todays opening price for "+ stock_symbol + " is $"+ last_price
+        response = "Current Trading Price for "+ stock_symbol + " is Rs."+ last_price
 
     else :
         response = "Please type hi/hello to get started."
@@ -43,9 +46,9 @@ def send_msg(msg, recipient):
 
 @app.route("/webhook", methods=["POST"])   
 def webhook():                               #getting data from the flask app sent using POST method
-    f = request.form
-    msg = f['Body']
-    sender = f['From']
+    req_form = request.form
+    msg = req_form['Body']
+    sender = req_form['From']
     response = create_response(msg)
     send_msg(response, sender)
     return "OK report", 200
